@@ -34,7 +34,7 @@ def perform_map(byte_array):
     return res_sum, res_max, res_min
 
 
-def preform_reduce(results):
+def perform_reduce(results):
     r_sum = sum(r[0] for r in results)
     r_max = max(r[1] for r in results)
     r_min = min(r[2] for r in results)
@@ -49,7 +49,7 @@ def solve_clever():
         with mmap.mmap(f.fileno(), length=0, access=mmap.ACCESS_READ) as mm:
             with Pool(max_threads) as pool:
                 r = pool.map(perform_map, [mm[chunk[0]: chunk[1]] for chunk in chunks])
-    preform_reduce(r)
+    perform_reduce(r)
 
 
 if __name__ == "__main__":
