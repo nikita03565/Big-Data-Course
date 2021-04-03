@@ -2,7 +2,7 @@ import numpy as np
 
 from decorators import timing
 
-file_name = "array_small"
+file_name = "array"
 
 
 def read_array():
@@ -12,7 +12,7 @@ def read_array():
 
 
 @timing(5)
-def simple_find():
+def solve_simple():
     array = read_array()
     res_sum, res_max, res_min = 0, 0, array[0]
 
@@ -29,7 +29,7 @@ def simple_find():
 
 
 if __name__ == "__main__":
-    simple_find()
+    solve_simple()
 
 # Output, just in case:
 # Sum: 1152898469225891636
