@@ -35,21 +35,21 @@ if __name__ == "__main__":
 # Sum: 1152898469225891636
 # Max: 4294967287
 # Min: 16
-# func: 'simple_find' took: 72.2614 sec
+# func: 'solve_simple' took: 72.2614 sec
 # Sum: 1152898469225891636
 # Max: 4294967287
 # Min: 16
-# func: 'simple_find' took: 71.8139 sec
+# func: 'solve_simple' took: 71.8139 sec
 # Sum: 1152898469225891636
 # Max: 4294967287
 # Min: 16
-# func: 'simple_find' took: 71.5230 sec
+# func: 'solve_simple' took: 71.5230 sec
 # Sum: 1152898469225891636
 # Max: 4294967287
 # Min: 16
-# func: 'simple_find' took: 71.8098 sec
+# func: 'solve_simple' took: 71.8098 sec
 # Sum: 1152898469225891636
 # Max: 4294967287
 # Min: 16
-# func: 'simple_find' took: 72.3496 sec
-# func: 'simple_find' took: 71.9515 sec on average
+# func: 'solve_simple' took: 72.3496 sec
+# func: 'solve_simple' took: 71.9515 sec on average
