@@ -14,3 +14,17 @@ fun countSimpleAlt() {
     lines.forEach { line -> sum += getPrimeFactorsAlt(BigInteger(line)).size }
     println("Seq result alt: $sum")
 }
+
+fun countSimpleCountOnly() {
+    var sum = 0
+    val lines: List<String> = File(fileName).readLines()
+    lines.forEach { line -> sum += getPrimeFactorsCount(BigInteger(line)) }
+    println("Seq result: $sum")
+}
+
+fun countSimpleAltCountOnly() {
+    var sum = 0
+    val lines: List<String> = File(fileName).readLines()
+    lines.forEach { line -> sum += getPrimeFactorsCountAlt(BigInteger(line)) }
+    println("Seq result alt: $sum")
+}

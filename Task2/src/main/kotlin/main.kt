@@ -10,4 +10,7 @@ fun countTime(fName: () -> Unit) {
 fun main() {
     countTime({ countSimple() })
     countTime({ countSimpleAlt() })
+
+    countTime({ countSimpleCountOnly() })
+    countTime({ countSimpleAltCountOnly() })
 }

@@ -23,11 +23,21 @@ fun getPrimeFactors(n: BigInteger): MutableList<BigInteger> {
     }
 }
 
-fun main() {
-    val primes =
-        intArrayOf(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
-    for (prime in primes) {
-        val bigPow2 = bigTwo.pow(prime) - BigInteger.ONE
-        println("2^${"%2d".format(prime)} - 1 = ${bigPow2.toString().padEnd(30)} => ${getPrimeFactors(bigPow2)}")
+fun getPrimeFactorsCount(n: BigInteger): Int {
+    var factorsCount = 0
+    if (n < bigTwo) return 0
+    if (n.isProbablePrime(20)) {
+        return 1
+    }
+    var factor = bigTwo
+    var nn = n
+    while (true) {
+        if (nn % factor == BigInteger.ZERO) {
+            factorsCount += 1
+            nn /= factor
+            if (nn == BigInteger.ONE) return factorsCount
+            if (nn.isProbablePrime(20)) factor = nn
+        } else if (factor >= bigThree) factor += bigTwo
+        else factor = bigThree
     }
 }
