@@ -3,9 +3,8 @@ import java.math.BigInteger
 import java.util.concurrent.CompletableFuture
 
 
-val cores = Runtime.getRuntime().availableProcessors()
-
 fun getChunksIndexes(numLines: Int): ArrayList<Pair<Int, Int>> {
+    val cores = Runtime.getRuntime().availableProcessors()
     val chunkSize = numLines / cores
     val chunks = arrayListOf<Pair<Int, Int>>()
     for (i in 0 until cores) {
@@ -16,17 +15,14 @@ fun getChunksIndexes(numLines: Int): ArrayList<Pair<Int, Int>> {
 }
 
 fun doMap(lines: List<String>, func: (BigInteger) -> Int): Int {
-    println("Fired!")
     val numbers = lines.map { BigInteger(it) }
     var innerSum = 0
     for (n in numbers) innerSum += func(n)
     return innerSum
 }
 
-fun getFactorsCompletableFuture(func: (BigInteger) -> Int) {
-    val currentTime = System.currentTimeMillis()
+fun countCompletableFuture(func: (BigInteger) -> Int) {
     val lines: List<String> = File(fileName).readLines()
-    println("File read in ${System.currentTimeMillis() - currentTime}")
     val chunks = getChunksIndexes(lines.size)
     val futures = arrayListOf<CompletableFuture<Int>>()
     for (chunk in chunks) {
@@ -34,14 +30,13 @@ fun getFactorsCompletableFuture(func: (BigInteger) -> Int) {
         futures.add(CompletableFuture.supplyAsync { doMap(part, func) })
     }
 
-    var sum: Int = 0
+    var sum = 0
     for (f in futures) sum += f.get()
 
-    val newTime = System.currentTimeMillis()
-    println("CompletableFuture result: " + sum.toString() + "; time: " + (newTime - currentTime))
+    println("CompletableFuture result: $sum with function $func")
 }
 
 fun main() {
-    getFactorsCompletableFuture(::getPrimeFactorsCount)
-    getFactorsCompletableFuture(::getPrimeFactorsCountAlt)
+    countCompletableFuture(::getPrimeFactorsCount)
+    countCompletableFuture(::getPrimeFactorsCountAlt)
 }

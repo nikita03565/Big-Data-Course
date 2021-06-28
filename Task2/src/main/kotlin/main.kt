@@ -4,13 +4,15 @@ fun countTime(fName: () -> Unit) {
     val elapsedTime = measureTimeMillis {
         fName()
     }
-    println("Elapsed time $elapsedTime ms")
+    println("Elapsed time $elapsedTime ms\n")
 }
 
 fun main() {
-    countTime({ countSimple() })
-    countTime({ countSimpleAlt() })
+    countTime({ countSimple(::getPrimeFactorsCount) })
+    countTime({ countSimple(::getPrimeFactorsCountAlt) })
 
-    countTime({ countSimpleCountOnly() })
-    countTime({ countSimpleAltCountOnly() })
+    countTime ({ countCompletableFuture(::getPrimeFactorsCount) })
+    countTime ({ countCompletableFutureGlobal(::getPrimeFactorsCount) })
+    countTime ({ countCompletableFuture(::getPrimeFactorsCountAlt) })
+    countTime ({ countCompletableFutureGlobal(::getPrimeFactorsCountAlt) })
 }

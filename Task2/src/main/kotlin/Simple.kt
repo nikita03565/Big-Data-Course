@@ -1,30 +1,9 @@
 import java.io.File
 import java.math.BigInteger
 
-fun countSimple() {
+fun countSimple(func: (BigInteger) -> Int) {
     var sum = 0
     val lines: List<String> = File(fileName).readLines()
-    lines.forEach { line -> sum += getPrimeFactors(BigInteger(line)).size }
-    println("Seq result: $sum")
-}
-
-fun countSimpleAlt() {
-    var sum = 0
-    val lines: List<String> = File(fileName).readLines()
-    lines.forEach { line -> sum += getPrimeFactorsAlt(BigInteger(line)).size }
-    println("Seq result alt: $sum")
-}
-
-fun countSimpleCountOnly() {
-    var sum = 0
-    val lines: List<String> = File(fileName).readLines()
-    lines.forEach { line -> sum += getPrimeFactorsCount(BigInteger(line)) }
-    println("Seq result: $sum")
-}
-
-fun countSimpleAltCountOnly() {
-    var sum = 0
-    val lines: List<String> = File(fileName).readLines()
-    lines.forEach { line -> sum += getPrimeFactorsCountAlt(BigInteger(line)) }
-    println("Seq result alt: $sum")
+    lines.forEach { line -> sum += func(BigInteger(line)) }
+    println("Simple result: $sum with function: $func")
 }
