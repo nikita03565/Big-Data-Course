@@ -20,16 +20,19 @@ class MasterActor : AbstractActor() {
         ReceiveBuilder()
             .match(File::class.java) { file ->
                 val lines = file.readLines()
-                workersCount = lines.size
+                val chunks = getChunksIndexes(lines.size)
+                workersCount = chunks.size
                 workers = Array(workersCount) { context.actorOf(Props.create(SlaveActor::class.java)) }
 
-                for (i in 0 until workersCount) {
-                    workers[i].tell(lines[i], self)
+                for (i in 0 until chunks.size) {
+                    val part = lines.slice(chunks[i].first..chunks[i].second)
+                    workers[i].tell(part, self)
                 }
             }
             .match(CountFactors::class.java) {
                 res += it.countFactors
                 finished++
+                println(finished)
                 if (finished == workersCount) {
                     println("Akka result: $res")
                     context.system.terminate()
@@ -41,9 +44,11 @@ class MasterActor : AbstractActor() {
 class SlaveActor : AbstractActor() {
     override fun createReceive(): Receive =
         ReceiveBuilder()
-            .match(String::class.java) {
-                val countFactors: Int = getPrimeFactorsCount(BigInteger(it))
-                sender.tell(CountFactors(countFactors), self)
+            .match(Iterable::class.java) {
+                val numbers = it.map { l-> BigInteger(l as String) }
+                var innerSum = 0
+                for (n in numbers) innerSum += getPrimeFactorsCount(n)
+                sender.tell(CountFactors(innerSum), self)
             }
             .build()
 }

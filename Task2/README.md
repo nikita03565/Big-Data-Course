@@ -17,6 +17,9 @@ Implement calculation:
 i5-10400f CPU, 6 cores
 
 # Results
+Two different implementations of getPrimeFactorsCount were used:
+1. Naive, simple loop through possible dividers that checks if number is dividable (called `getPrimeFactorsCountAlt`)
+2. Optimized version using `isProbablePrime` method (called `getPrimeFactorsCount`)
 
 Simple result: 9029 with function getPrimeFactorsCount \
 Elapsed time 6787 ms
@@ -48,7 +51,13 @@ Elapsed time 26463 ms
 Akka result alt: 9029\
 Elapsed time 26493 ms
 
-Any of multithreading implementations was 2 times faster than naive sequential one.
-Two different implementations of getPrimeFactorsCount were used:
-1. Naive, simple loop through possible dividers that checks if number is dividable (called `getPrimeFactorsCountAlt`) 
-2. Optimized version using `isProbablePrime` method with (called `getPrimeFactorsCount`)
+Any of multithreading implementations was 2 times faster than naive sequential one and there is
+no much difference between different implementations. They all look like random deviations except for Akka.
+
+These lines take 500ms to complete
+```kotlin
+val file = File(fileName)
+val actorSystem = ActorSystem.create("AkkaFactorization")
+val actorRef = actorSystem.actorOf(Props.create(MasterActor::class.java))
+actorRef.tell(file, actorRef)
+```  
