@@ -12,6 +12,7 @@ fun main() {
     countTime ({ RxFlowable(::getPrimeFactorsCount)})
     countTime ({ countCompletableFuture(::getPrimeFactorsCount) })
     countTime ({ countCompletableFutureGlobal(::getPrimeFactorsCount) })
+    countTime ({ countAkka() })
 
     countTime({ countSimple(::getPrimeFactorsCountAlt) })
     countTime ({ RxFlowable(::getPrimeFactorsCountAlt)})
