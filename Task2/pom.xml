@@ -66,6 +66,16 @@
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>1.4.32</version>
         </dependency>
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor_2.12</artifactId>
+            <version>2.6.4</version>
+        </dependency>
+        <dependency>
+            <groupId>io.reactivex.rxjava3</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>3.0.4</version>
+        </dependency>
     </dependencies>
 
 </project>
